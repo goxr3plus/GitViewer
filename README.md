@@ -1,11 +1,16 @@
-# Sample Snack app
+# Manual
 
-Open the `App.js` file to start writing some code. You can preview the changes directly on your phone or tablet by scanning the **QR code** or use the iOS or Android emulators. When you're done, click **Save** and share the link!
+How to run the application .
 
-When you're ready to see everything that Expo provides (or if you want to use your own editor) you can **Download** your project and use it with [expo-cli](https://docs.expo.io/get-started/installation).
 
-All projects created in Snack are publicly available, so you can easily share the link to this project via link, or embed it on a web page with the `<>` button.
+1) Install Node.js  ( 14.17.0 ) on your system
 
-If you're having problems, you can tweet to us [@expo](https://twitter.com/expo) or ask in our [forums](https://forums.expo.io/c/snack).
+You can also use NVM so you can have multiple node.js versions on your system ( https://github.com/coreybutler/nvm-windows/releases/tag/1.1.8 )
 
-Snack is Open Source. You can find the code on the [GitHub repo](https://github.com/expo/snack).
+2) Install expo-cli
+   ` npm install expo-cli --global`
+3) Install Android Studio and setup an emulator
+4) From inside the project run `npm run android`
+
+
+For any questions please ask : )
