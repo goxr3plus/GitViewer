@@ -5,7 +5,7 @@ export const FollowersScreen = ({}) => {
 
 	return (
 		<View style={styles.container}>
-			<Text> Followers screen </Text>
+			<Text style={{ fontSize: 35, fontWeight: 'bold' }}> Followers screen </Text>
 		</View>
 	)
 }

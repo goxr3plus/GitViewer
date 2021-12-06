@@ -1,33 +1,45 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { HomeScreen } from './HomeScreen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { DashboardScreen } from './DashboardScreen'
 import { NavigationContainer } from '@react-navigation/native'
+import { ProfileScreen } from './ProfileScreen'
+import { FollowersScreen } from './FollowersScreen'
+import { RepositoriesScreen } from './RepositoriesScreen'
 
 const Stack = createStackNavigator()
 
-
 export const Navigation = ({}) => {
 
-	const DashboardScreen = (props) => <DashboardScreen {...props} />
+	const Dashboard = (props) => <DashboardScreen {...props} />
 
-	const FollowersScreen = (props) => <HomeScreen {...props} />
+	const Followers = (props) => <FollowersScreen {...props} />
 
-	const ProfileScreen = (props) => <HomeScreen {...props} />
+	const Profile = (props) => <ProfileScreen {...props} />
 
-	const RepositoriesScreen = (props) => <HomeScreen {...props} />
+	const Repositories = (props) => <RepositoriesScreen {...props} />
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator initialRouteName={'Dashboard'}>
-				<Stack.Screen name='Dashboard' component={DashboardScreen} />
-				<Stack.Screen name='Followers' component={FollowersScreen} />
-				<Stack.Screen name='Profile' component={ProfileScreen} />
-				<Stack.Screen name='Repositories' component={RepositoriesScreen} />
+			<Stack.Navigator initialRouteName={'Dashboard'}
+							 screenOptions={{
+								 // headerMode: 'screen',
+								 headerTintColor: 'white',
+								 headerStyle: { backgroundColor: 'tomato' }
+							 }}
+			>
+				<Stack.Screen name='Dashboard' component={Dashboard} />
+				<Stack.Screen name='Followers' component={Followers} />
+				<Stack.Screen name='Profile' component={Profile} />
+				<Stack.Screen name='Repositories' component={Repositories} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	)
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: 'black'
+	}
+})

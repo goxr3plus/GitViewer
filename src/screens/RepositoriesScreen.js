@@ -5,7 +5,7 @@ export const RepositoriesScreen = ({}) => {
 
 	return (
 		<View style={styles.container}>
-			<Text> Repositories screen </Text>
+			<Text style={{ fontSize: 35, fontWeight: 'bold' }}> Repositories screen </Text>
 		</View>
 	)
 }

@@ -5,7 +5,7 @@ export const ProfileScreen = ({}) => {
 
 	return (
 		<View style={styles.container}>
-			<Text> Profile screen </Text>
+			<Text style={{ fontSize: 35, fontWeight: 'bold' }}> Profile screen </Text>
 		</View>
 	)
 }
