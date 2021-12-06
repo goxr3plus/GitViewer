@@ -1,5 +1,7 @@
 # Manual
 
+![img_6.png](img_6.png)
+
 How to run the application .
 
 
@@ -30,6 +32,6 @@ Wait for the bundle to complete
 
 And tada !!!
 
-![img_4.png](img_4.png)
+![img_5.png](img_5.png)
 
 For any questions please ask : )
