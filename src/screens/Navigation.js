@@ -3,27 +3,30 @@ import { StyleSheet } from 'react-native'
 import { HomeScreen } from './HomeScreen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { DashboardScreen } from './DashboardScreen'
+import { NavigationContainer } from '@react-navigation/native'
 
 const Stack = createStackNavigator()
 
 
 export const Navigation = ({}) => {
 
-	const DashboardScreen = () => <DashboardScreen {...props} />
+	const DashboardScreen = (props) => <DashboardScreen {...props} />
 
-	const FollowersScreen = () => <HomeScreen {...props} />
+	const FollowersScreen = (props) => <HomeScreen {...props} />
 
-	const ProfileScreen = () => <HomeScreen {...props} />
+	const ProfileScreen = (props) => <HomeScreen {...props} />
 
-	const RepositoriesScreen = () => <HomeScreen {...props} />
+	const RepositoriesScreen = (props) => <HomeScreen {...props} />
 
 	return (
-		<Stack.Navigator initialRouteName={'Dashboard'}>
-			<Stack.Screen name='Dashboard' component={DashboardScreen} />
-			<Stack.Screen name='Followers' component={FollowersScreen} />
-			<Stack.Screen name='Profile' component={ProfileScreen} />
-			<Stack.Screen name='Repositories' component={RepositoriesScreen} />
-		</Stack.Navigator>
+		<NavigationContainer>
+			<Stack.Navigator initialRouteName={'Dashboard'}>
+				<Stack.Screen name='Dashboard' component={DashboardScreen} />
+				<Stack.Screen name='Followers' component={FollowersScreen} />
+				<Stack.Screen name='Profile' component={ProfileScreen} />
+				<Stack.Screen name='Repositories' component={RepositoriesScreen} />
+			</Stack.Navigator>
+		</NavigationContainer>
 	)
 }
 

@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
-import { StatusBar, StyleSheet, View } from 'react-native'
-import { Navigation } from './src/screens/Navigation'
-import Toast from 'react-native-toast-message'
-import { toastConfig } from './src/lib/Toaster'
+import { StyleSheet, Text, View } from 'react-native'
 
 
 export default function App() {
@@ -11,19 +8,22 @@ export default function App() {
 	return (
 		<View style={styles.container}>
 			{/*<StatusBar hidden />*/}
-			<Navigation />
-			<Toast
-				position='top'
-				bottomOffset={70}
-				config={toastConfig}
-				visibilityTime={1500}
-			/>
+			{/*<Navigation />*/}
+			{/*<Toast*/}
+			{/*	position='top'*/}
+			{/*	bottomOffset={70}*/}
+			{/*	config={toastConfig}*/}
+			{/*	visibilityTime={1500}*/}
+			{/*/>*/}
+			<Text style={{ fontWeight: 'bold', fontSize: 50 }}>Holla Amigos what's poppin!</Text>
 		</View>
 	)
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center'
 	}
 })
