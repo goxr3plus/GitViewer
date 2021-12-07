@@ -23,6 +23,28 @@ export const Navigation = ({}) => {
 
 	const Repositories = (props) => <RepositoriesScreen {...props} />
 
+	const getUserIcon = () => {
+		const loggedIn = false
+
+		if (loggedIn) {
+			return <EvilIcons
+				name='user'
+				size={50}
+				color='green'
+				style={{ marginRight: 15 }}
+				onPress={() => console.log('Show Logout Modal')}
+			/>
+		} else {
+			return <EvilIcons
+				name='user'
+				size={50}
+				color='red'
+				style={{ marginRight: 15 }}
+				onPress={() => console.log('Show token modal')}
+			/>
+		}
+	}
+
 	return (
 		<NavigationContainer>
 			<Stack.Navigator initialRouteName={'SearchUser'}
@@ -38,66 +60,37 @@ export const Navigation = ({}) => {
 							  options={({ navigation, route }) => ({
 								  title: 'Search',
 								  headerRight: () => (
-									  <EvilIcons
-										  name='user'
-										  size={50}
-										  color='red'
-										  style={{ marginRight: 15 }}
-										  onPress={() => navigation.navigate('Dashboard')}
-									  />
+									  getUserIcon()
 								  )
 							  })}
 				/>
 				<Stack.Screen name='Dashboard' component={Dashboard}
 							  options={({ navigation, route }) => ({
 								  title: 'Dashboard',
+								  // headerLeft: ()=> null,
 								  headerRight: () => (
-									  <EvilIcons
-										  name='user'
-										  size={50}
-										  color='red'
-										  style={{ marginRight: 15 }}
-										  onPress={() => console.log('a')}
-									  />
+									  getUserIcon()
 								  )
 							  })} />
 				<Stack.Screen name='Followers' component={Followers}
 							  options={({ navigation, route }) => ({
 								  title: 'Followers',
 								  headerRight: () => (
-									  <EvilIcons
-										  name='user'
-										  size={50}
-										  color='red'
-										  style={{ marginRight: 15 }}
-										  onPress={() => console.log('a')}
-									  />
+									  getUserIcon()
 								  )
 							  })} />
 				<Stack.Screen name='Profile' component={Profile}
 							  options={({ navigation, route }) => ({
 								  title: 'Profile',
 								  headerRight: () => (
-									  <EvilIcons
-										  name='user'
-										  size={50}
-										  color='red'
-										  style={{ marginRight: 15 }}
-										  onPress={() => console.log('a')}
-									  />
+									  getUserIcon()
 								  )
 							  })} />
 				<Stack.Screen name='Repositories' component={Repositories}
 							  options={({ navigation, route }) => ({
 								  title: 'Repositories',
 								  headerRight: () => (
-									  <EvilIcons
-										  name='user'
-										  size={50}
-										  color='red'
-										  style={{ marginRight: 15 }}
-										  onPress={() => console.log('a')}
-									  />
+									  getUserIcon()
 								  )
 							  })} />
 			</Stack.Navigator>
