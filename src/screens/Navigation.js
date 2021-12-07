@@ -6,10 +6,14 @@ import { NavigationContainer } from '@react-navigation/native'
 import { ProfileScreen } from './ProfileScreen'
 import { FollowersScreen } from './FollowersScreen'
 import { RepositoriesScreen } from './RepositoriesScreen'
+import { SearchUserScreen } from './SearchUserScreen'
+import { EvilIcons } from '@expo/vector-icons'
 
 const Stack = createStackNavigator()
 
 export const Navigation = ({}) => {
+
+	const SearchUser = (props) => <SearchUserScreen {...props} />
 
 	const Dashboard = (props) => <DashboardScreen {...props} />
 
@@ -21,17 +25,81 @@ export const Navigation = ({}) => {
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator initialRouteName={'Dashboard'}
+			<Stack.Navigator initialRouteName={'SearchUser'}
+
 							 screenOptions={{
 								 // headerMode: 'screen',
+								 backgroundColor: 'skyblue',
 								 headerTintColor: 'white',
-								 headerStyle: { backgroundColor: 'tomato' }
+								 headerStyle: { backgroundColor: 'skyblue' }
 							 }}
 			>
-				<Stack.Screen name='Dashboard' component={Dashboard} />
-				<Stack.Screen name='Followers' component={Followers} />
-				<Stack.Screen name='Profile' component={Profile} />
-				<Stack.Screen name='Repositories' component={Repositories} />
+				<Stack.Screen name='Search' component={SearchUserScreen}
+							  options={({ navigation, route }) => ({
+								  title: 'Search',
+								  headerRight: () => (
+									  <EvilIcons
+										  name='user'
+										  size={50}
+										  color='red'
+										  style={{ marginRight: 15 }}
+										  onPress={() => navigation.navigate('Dashboard')}
+									  />
+								  )
+							  })}
+				/>
+				<Stack.Screen name='Dashboard' component={Dashboard}
+							  options={({ navigation, route }) => ({
+								  title: 'Dashboard',
+								  headerRight: () => (
+									  <EvilIcons
+										  name='user'
+										  size={50}
+										  color='red'
+										  style={{ marginRight: 15 }}
+										  onPress={() => console.log('a')}
+									  />
+								  )
+							  })} />
+				<Stack.Screen name='Followers' component={Followers}
+							  options={({ navigation, route }) => ({
+								  title: 'Followers',
+								  headerRight: () => (
+									  <EvilIcons
+										  name='user'
+										  size={50}
+										  color='red'
+										  style={{ marginRight: 15 }}
+										  onPress={() => console.log('a')}
+									  />
+								  )
+							  })} />
+				<Stack.Screen name='Profile' component={Profile}
+							  options={({ navigation, route }) => ({
+								  title: 'Profile',
+								  headerRight: () => (
+									  <EvilIcons
+										  name='user'
+										  size={50}
+										  color='red'
+										  style={{ marginRight: 15 }}
+										  onPress={() => console.log('a')}
+									  />
+								  )
+							  })} />
+				<Stack.Screen name='Repositories' component={Repositories}
+							  options={({ navigation, route }) => ({
+								  title: 'Repositories',
+								  headerRight: () => (
+									  <EvilIcons
+										  name='user'
+										  size={50}
+										  color='red'
+										  style={{ marginRight: 15 }}
+										  onPress={() => console.log('a')}
+									  />
+								  )
+							  })} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	)
