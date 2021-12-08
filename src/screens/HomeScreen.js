@@ -3,7 +3,6 @@ import { View, StyleSheet, Image, Text, TextInput, Button, Alert, Pressable, Mod
 import axios from 'axios';
 import styles from "../css/HomePage.js"
 
-
     const UserContext = createContext({
       avatarUrl: "",
       setAvatarUrl: () => {}
@@ -17,8 +16,6 @@ const HomeScreen = () => {
   const value = useMemo(() => ({ avatarUrl, setAvatarUrl }), [avatarUrl]);
   const [errorMessage, setErrorMessage] = useState("");
 
-
-
 getGithubAccountData = async (access_token) => {
    axios.get('https://api.github.com/user', {
      headers: {
@@ -29,11 +26,12 @@ getGithubAccountData = async (access_token) => {
      console.log(res.data);
      setAvatarUrl(res.data.avatar_url);
      setModalVisible(!modalVisible);
+
    })
    .catch((error) => {
      console.error(error)
-     const errorMessage = error;
-
+//     const errorMessage = error;
+     setErrorMessage(error);
    })
 };
 
@@ -44,7 +42,7 @@ getGithubAccountData = async (access_token) => {
                   onPress={() => {
                     setModalVisible(true);
                   }}>
-        <Image style={styles.image} source={avatarUrl ==="" ? require('../images/profile.png'):require('') } />
+        <Image style={styles.image} source={avatarUrl ==="" ? require('../images/profile.png'):{uri: avatarUrl} } />
         </TouchableHighlight>
       </View>
       <View style={styles.search}>
@@ -79,10 +77,8 @@ getGithubAccountData = async (access_token) => {
                            onPress={() =>  getGithubAccountData(tokenText)}
                          >
                            <Text style={styles.textStyle}>Login</Text>
-                            <Text style={{color: 'red'}}>{errorMessage === "" ? "" : errorMessage.data}</Text>
-
-
                          </Pressable>
+                    <Text style={{color: 'red'}}>{errorMessage === "" ? "" : errorMessage.message}</Text>
                        </View>
                      </View>
                    </Modal>
@@ -99,7 +95,6 @@ getGithubAccountData = async (access_token) => {
 };
 
     function UserInfo() {
-//      const { userName } = useContext(UserContext);
       const { avatarUrl } = useContext(UserContext);
       return <Text>{avatarUrl}</Text>;
     }
