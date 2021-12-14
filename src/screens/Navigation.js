@@ -6,48 +6,44 @@ import { NavigationContainer } from '@react-navigation/native'
 import { ProfileScreen } from './ProfileScreen'
 import { FollowersScreen } from './FollowersScreen'
 import { RepositoriesScreen } from './RepositoriesScreen'
-import SearchUserScreen from './SearchUserScreen'
-import { EvilIcons } from '@expo/vector-icons'
 
 const Stack = createStackNavigator()
 
-export const Navigation = ({}) => {
-
-	const SearchUser = (props) => <SearchUserScreen {...props} />
+export const Navigation = ({loggedInUserData}) => {
 
 	const Dashboard = (props) => <DashboardScreen {...props} />
 
 	const Followers = (props) => <FollowersScreen {...props} />
 
-	const Profile = (props) => <ProfileScreen {...props} />
+	const Profile = (props) => <ProfileScreen loggedInUserData={loggedInUserData} {...props} />
 
 	const Repositories = (props) => <RepositoriesScreen {...props} />
 
 	const getUserIcon = () => {
 		const loggedIn = false
 
-		if (loggedIn) {
-			return <EvilIcons
-				name='user'
-				size={50}
-				color='green'
-				style={{ marginRight: 15 }}
-				onPress={() => console.log('Show Logout Modal')}
-			/>
-		} else {
-			return <EvilIcons
-				name='user'
-				size={50}
-				color='red'
-				style={{ marginRight: 15 }}
-				onPress={() => console.log('Show token modal')}
-			/>
-		}
+		// if (loggedIn) {
+		// 	return <EvilIcons
+		// 		name='user'
+		// 		size={50}
+		// 		color='green'
+		// 		style={{ marginRight: 15 }}
+		// 		onPress={() => console.log('Show Logout Modal')}
+		// 	/>
+		// } else {
+		// 	return <EvilIcons
+		// 		name='user'
+		// 		size={50}
+		// 		color='red'
+		// 		style={{ marginRight: 15 }}
+		// 		onPress={() => console.log('Show token modal')}
+		// 	/>
+		// }
 	}
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator initialRouteName={'SearchUser'}
+			<Stack.Navigator initialRouteName={'Dashboard'}
 							 screenOptions={{
 								 // headerMode: 'screen',
 								 backgroundColor: 'skyblue',
@@ -55,14 +51,6 @@ export const Navigation = ({}) => {
 								 headerStyle: { backgroundColor: 'skyblue' }
 							 }}
 			>
-				<Stack.Screen name='Search' component={SearchUserScreen}
-							  options={({ navigation, route }) => ({
-								  title: 'Search',
-								  headerRight: () => (
-									  getUserIcon()
-								  )
-							  })}
-				/>
 				<Stack.Screen name='Dashboard' component={Dashboard}
 							  options={({ navigation, route }) => ({
 								  title: 'Dashboard',

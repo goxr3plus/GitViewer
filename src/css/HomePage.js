@@ -7,11 +7,12 @@ export default StyleSheet.create({
                //    alignItems: 'center',
                  },
                  box: {
-                   flex:1/8,
+                   flex:0.1,
                    backgroundColor: '#fff',
                    flexDirection: "row",
                    justifyContent: "flex-end",
-                   alignItems: 'center'
+                   alignItems: 'center',
+                     marginRight:10
                  },
                    search: {
                      flex:1,
@@ -20,8 +21,8 @@ export default StyleSheet.create({
                      justifyContent: 'center'
                    },
                    image: {
-                      width: 40,
-                      height: 40
+                      width: 50,
+                      height: 50
                    },
                    text: {
                       color: '#fff',

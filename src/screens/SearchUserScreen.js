@@ -1,53 +1,59 @@
-import React, { createContext, useContext, useMemo, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Image, Modal, Pressable, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native'
 import axios from 'axios'
 import styles from '../css/HomePage.js'
-import { showSuccessToast } from '../lib/Toaster'
+import { showErrorToast, showSuccessToast, showWarningToast } from '../lib/Toaster'
+import { isEmpty } from '../lib/Tools'
 
-const UserContext = createContext({
-	avatarUrl: '',
-	setAvatarUrl: () => {
-	}
-})
-
-const SearchUserScreen = () => {
-	const [text, onChangeText] = React.useState('')
-	const [tokenText, onChangeTokenText] = React.useState('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')
-	const [modalVisible, setModalVisible] = useState(false)
-	const [modalLogoutVisible, setModalLogoutVisible] = useState(false)
+const SearchUserScreen = ({ onSearchPress }) => {
+	const [searchUserName, changeSearchUserName] = React.useState('')
+	const [accessToken, changeAccessToken] = React.useState('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')
+	const [loginModalVisible, setLoginModalVisible] = useState(false)
+	const [logoutModalVisible, setLogoutModalVisible] = useState(false)
 	const [avatarUrl, setAvatarUrl] = useState('')
-	const value = useMemo(() => ({ avatarUrl, setAvatarUrl }), [avatarUrl])
-	const [errorMessage, setErrorMessage] = useState('')
+	const loggedInUserData = useRef()
 
-	const getGithubAccountData = async (access_token) => {
-		axios.get('https://api.github.com/user', {
-			headers: {
-				'Authorization': `token ${access_token}`
-			}
-		})
-			.then((res) => {
-				console.log(res.data)
-				setAvatarUrl(res.data.avatar_url)
-				setModalVisible(!modalVisible)
-				showSuccessToast('You have successfully loggedin')
+	const login = async (access_token) => {
+		try {
+			const response = await axios.get('https://api.github.com/user', {
+				headers: {
+					'Authorization': `token ${access_token}`
+				}
+			})
 
-			})
-			.catch((error) => {
-				console.error(error)
-				setErrorMessage(error)
-			})
+			loggedInUserData.current = response.data
+			// console.log(response.data)
+			setAvatarUrl(response.data.avatar_url)
+			setLoginModalVisible(!loginModalVisible)
+			showSuccessToast('You have successfully loggedin')
+
+		} catch (e) {
+			console.error(e)
+			showErrorToast('Error: ' + e)
+		}
 	}
 
-	const logoutFunction = () => {
+	const logout = () => {
 		setAvatarUrl('')
-		setModalLogoutVisible(false)
+		setLogoutModalVisible(false)
+		showWarningToast('Logged out successfully')
+	}
+
+	const onSearch = () => {
+		if (isEmpty(searchUserName)) {
+			showErrorToast('Please type a user name!')
+		} else if (isEmpty(loggedInUserData.current)) {
+			showErrorToast('You have to login!')
+		} else {
+			onSearchPress(searchUserName, accessToken, loggedInUserData.current)
+		}
 	}
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.box}>
 				<TouchableHighlight onPress={() => {
-					avatarUrl === '' ? setModalVisible(true) : setModalLogoutVisible(true)
+					avatarUrl === '' ? setLoginModalVisible(true) : setLogoutModalVisible(true)
 				}}>
 					<Image style={styles.image}
 						   source={avatarUrl === '' ? require('../images/profile.png') : { uri: avatarUrl }} />
@@ -57,38 +63,35 @@ const SearchUserScreen = () => {
 				<Text style={styles.text}>
 					Search for a Git User
 				</Text>
-				<TextInput style={styles.input} onChangeText={text => onChangeText(text)} value={text}
+				<TextInput style={styles.input} onChangeText={text => changeSearchUserName(text)} value={searchUserName}
 						   placeholder='GitHub User' />
 
-				{modalVisible &&
-					<Modal animationType='slide' transparent={true} visible={modalVisible}>
+				{loginModalVisible &&
+					<Modal animationType='slide' transparent={true} visible={loginModalVisible}>
 						<View style={styles.modalView}>
-							{/*<View styles={{ flex: 0.5, flexDirection: 'row-reverse', backgroundColor: 'red' }}>*/}
-							<TouchableOpacity onPress={() => setModalVisible(false)}>
+							<TouchableOpacity onPress={() => setLoginModalVisible(false)}>
 								<Text style={styles.modalHeaderCloseText}>X</Text>
 							</TouchableOpacity>
-							{/*</View>*/}
 							<Text style={styles.modalText}>Add Credentials</Text>
-							<TextInput style={styles.input} onChangeText={tokenText => onChangeTokenText(tokenText)}
-									   value={tokenText} placeholder='' />
+							<TextInput style={styles.input} onChangeText={tokenText => changeAccessToken(tokenText)}
+									   value={accessToken} placeholder='' />
 							<Pressable style={styles.button}
-									   onPress={() => getGithubAccountData(tokenText)}>
+									   onPress={() => login(accessToken)}>
 								<Text style={styles.textStyle}>Login</Text>
 							</Pressable>
-							<Text style={{ color: 'red' }}>{errorMessage === '' ? '' : errorMessage.message}</Text>
 						</View>
 					</Modal>
 				}
 
 
-				{modalLogoutVisible &&
-					<Modal animationType='slide' transparent={true} visible={modalLogoutVisible}>
+				{logoutModalVisible &&
+					<Modal animationType='slide' transparent={true} visible={logoutModalVisible}>
 						<View style={styles.modalView}>
-							<TouchableOpacity onPress={() => setModalLogoutVisible(false)}>
+							<TouchableOpacity onPress={() => setLogoutModalVisible(false)}>
 								<Text style={styles.modalHeaderCloseText}>X</Text>
 							</TouchableOpacity>
-							<Pressable style={[styles.button, styles.buttonClose]}
-									   onPress={logoutFunction}>
+							<Pressable style={styles.button}
+									   onPress={logout}>
 								<Text style={styles.textStyle}>Logout</Text>
 							</Pressable>
 
@@ -96,20 +99,12 @@ const SearchUserScreen = () => {
 					</Modal>
 				}
 
-				<Pressable style={styles.button}>
+				<Pressable style={styles.button} onPress={onSearch}>
 					<Text style={styles.textButton}>Search</Text>
 				</Pressable>
-				<UserContext.Provider value={value}>
-					<UserInfo />
-				</UserContext.Provider>
 			</View>
 		</View>
 	)
-}
-
-function UserInfo() {
-	const { avatarUrl } = useContext(UserContext)
-	return <Text></Text>
 }
 
 export default SearchUserScreen

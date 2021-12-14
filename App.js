@@ -1,20 +1,35 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { StatusBar, StyleSheet } from 'react-native'
 import { toastConfig } from './src/lib/Toaster'
 import Toast from 'react-native-toast-message'
-import SearchUserScreen from './src/screens/SearchUserScreen'
 import { Navigation } from './src/screens/Navigation'
+import SearchUserScreen from './src/screens/SearchUserScreen'
 
 export default function App() {
-	const [mainScreenVisible, setMainScreenVisible] = useState(false)
-	
+	const [searchedUserName, setSearchedUserName] = useState(false)
+	const accessToken = useRef()
+	const loggedInUserData = useRef()
+
+	const onSearchPress = (searchedUserNamee, accessTokenn, loggedInUserDataa) => {
+		accessToken.current = accessTokenn
+		loggedInUserData.current = loggedInUserDataa
+		setSearchedUserName(searchedUserNamee)
+	}
+
+	const logout = () => {
+		setSearchedUserName(null)
+	}
+
 	return (
 		<>
 			<StatusBar />
-			<Navigation />
+			{searchedUserName === false
+				? <SearchUserScreen onSearchPress={onSearchPress} />
+				: <Navigation loggedInUserData={loggedInUserData} logout={logout} />
+			}
 			<Toast
-				position='top'
-				bottomOffset={70}
+				position='bottom'
+				bottomOffset={5}
 				config={toastConfig}
 				visibilityTime={1500}
 			/>
