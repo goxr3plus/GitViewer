@@ -48,7 +48,6 @@ export const Navigation = ({}) => {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator initialRouteName={'SearchUser'}
-
 							 screenOptions={{
 								 // headerMode: 'screen',
 								 backgroundColor: 'skyblue',

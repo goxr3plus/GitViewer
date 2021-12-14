@@ -10,21 +10,20 @@ export default function App() {
 	const [mainScreenVisible, setMainScreenVisible] = useState(false)
 
 	return (
+	    // <>
+        //   <StatusBar />
+        //   <HomeScreen />
+        // </>
 
-	    <>
-          <StatusBar />
-          <HomeScreen />
-        </>
-
-//		<>
-//			<Navigation />
-//			<Toast
-//				position='top'
-//				bottomOffset={70}
-//				config={toastConfig}
-//				visibilityTime={1500}
-//			/>
-//		</>
+		<>
+			<Navigation />
+			<Toast
+				position='top'
+				bottomOffset={70}
+				config={toastConfig}
+				visibilityTime={1500}
+			/>
+		</>
 	)
 }
 
