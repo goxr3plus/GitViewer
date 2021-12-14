@@ -2,6 +2,7 @@ import React, { useState, useContext, createContext, useMemo } from "react";
 import { View, StyleSheet, Image, Text, TextInput, Button, Alert, Pressable, Modal ,TouchableOpacity, TouchableHighlight} from 'react-native'
 import axios from 'axios';
 import styles from "../css/HomePage.js"
+import showSuccessToast from "../lib/Toaster.js"
 
     const UserContext = createContext({
       avatarUrl: "",
@@ -12,6 +13,7 @@ const HomeScreen = () => {
   const [text, onChangeText] = React.useState("");
   const [tokenText, onChangeTokenText] = React.useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalLogoutVisible, setModalLogoutVisible] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState("");
   const value = useMemo(() => ({ avatarUrl, setAvatarUrl }), [avatarUrl]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -30,73 +32,71 @@ getGithubAccountData = async (access_token) => {
    })
    .catch((error) => {
      console.error(error)
-//     const errorMessage = error;
      setErrorMessage(error);
    })
 };
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.box}>
-         <TouchableHighlight
-                  onPress={() => {
-                    setModalVisible(true);
-                  }}>
-        <Image style={styles.image} source={avatarUrl ==="" ? require('../images/profile.png'):{uri: avatarUrl} } />
-        </TouchableHighlight>
-      </View>
-      <View style={styles.search}>
-        <Text style={styles.text}>
-            Search for a Git User
-        </Text>
-         <TextInput
-           style={styles.input}
-           onChangeText={text => onChangeText(text)}
-           value={text}
-           placeholder="GitHub User"
-         />
-                   <Modal
-                     animationType="slide"
-                     transparent={true}
-                     visible={modalVisible}
-                   >
-                     <View style={styles.centeredView}>
-                            <TouchableOpacity onPress={() => setModalVisible(false)}>
-                                 <Text style={styles.modalHeaderCloseText}>X</Text>
-                            </TouchableOpacity>
-                       <View style={styles.modalView}>
-                         <Text style={styles.modalText}>Add Credentials</Text>
-                          <TextInput
-                                    style={styles.input}
-                                    onChangeText={tokenText => onChangeTokenText(tokenText)}
-                                    value={tokenText}
-                                    placeholder=""
-                                  />
-                         <Pressable
-                           style={[styles.button, styles.buttonClose]}
-                           onPress={() =>  getGithubAccountData(tokenText)}
-                         >
-                           <Text style={styles.textStyle}>Login</Text>
-                         </Pressable>
-                    <Text style={{color: 'red'}}>{errorMessage === "" ? "" : errorMessage.message}</Text>
-                       </View>
-                     </View>
-                   </Modal>
+  const logoutFunction = () => {
+   setAvatarUrl("");
+   setModalLogoutVisible(false);
+  };
 
-             <Pressable style={styles.button}>
-               <Text style={styles.textButton}>Search</Text>
-             </Pressable>
-              <UserContext.Provider value={value}>
+  return (
+   <View style={styles.container}>
+       <View style={styles.box}>
+           <TouchableHighlight onPress={()=> { avatarUrl==="" ? setModalVisible(true): setModalLogoutVisible(true) }}>
+               <Image style={styles.image} source={avatarUrl==="" ? require( '../images/profile.png'):{uri: avatarUrl} } />
+           </TouchableHighlight>
+       </View>
+       <View style={styles.search}>
+           <Text style={styles.text}>
+               Search for a Git User
+           </Text>
+           <TextInput style={styles.input} onChangeText={text=> onChangeText(text)} value={text} placeholder="GitHub User" />
+               <Modal animationType="slide" transparent={true} visible={modalVisible}>
+                   <View style={styles.centeredView}>
+                       <TouchableOpacity onPress={()=> setModalVisible(false)}>
+                           <Text style={styles.modalHeaderCloseText}>X</Text>
+                       </TouchableOpacity>
+                       <View style={styles.modalView}>
+                           <Text style={styles.modalText}>Add Credentials</Text>
+                           <TextInput style={styles.input} onChangeText={tokenText=> onChangeTokenText(tokenText)} value={tokenText} placeholder="" />
+                               <Pressable style={[styles.button, styles.buttonClose]} onPress={()=> getGithubAccountData(tokenText)} >
+                                   <Text style={styles.textStyle}>Login</Text>
+                               </Pressable>
+                               <Text style={{color: 'red'}}>{errorMessage === "" ? "" : errorMessage.message}</Text>
+                       </View>
+                   </View>
+               </Modal>
+
+
+               <Modal animationType="slide" transparent={true} visible={modalLogoutVisible}>
+                                  <View style={styles.centeredView}>
+                                      <TouchableOpacity onPress={()=> setModalLogoutVisible(false)}>
+                                          <Text style={styles.modalHeaderCloseText}>X</Text>
+                                      </TouchableOpacity>
+                                      <View style={styles.modalView}>
+                                              <Pressable style={[styles.button, styles.buttonClose]} onPress={()=> getGithubAccountData(tokenText)} >
+                                                  <Text style={styles.textStyle}>Logout</Text>
+                                              </Pressable>
+
+                                      </View>
+                                  </View>
+               </Modal>
+               <Pressable style={styles.button}>
+                   <Text style={styles.textButton}>Search</Text>
+               </Pressable>
+               <UserContext.Provider value={value}>
                    <UserInfo />
-                 </UserContext.Provider>
-     </View>
-    </View>
+               </UserContext.Provider>
+       </View>
+   </View>
   );
 };
 
     function UserInfo() {
       const { avatarUrl } = useContext(UserContext);
-      return <Text>{avatarUrl}</Text>;
+      return <Text></Text>;
     }
 
 export default HomeScreen;
