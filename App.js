@@ -1,21 +1,16 @@
 import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
+import { StatusBar, StyleSheet } from 'react-native'
 import { toastConfig } from './src/lib/Toaster'
 import Toast from 'react-native-toast-message'
+import SearchUserScreen from './src/screens/SearchUserScreen'
 import { Navigation } from './src/screens/Navigation'
- import HomeScreen from './src/screens/HomeScreen';
-import { StatusBar } from "react-native";
 
 export default function App() {
 	const [mainScreenVisible, setMainScreenVisible] = useState(false)
-
+	
 	return (
-	    // <>
-        //   <StatusBar />
-        //   <HomeScreen />
-        // </>
-
 		<>
+			<StatusBar />
 			<Navigation />
 			<Toast
 				position='top'

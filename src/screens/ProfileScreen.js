@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 
 export const ProfileScreen = ({}) => {
 
+
 	return (
 		<View style={styles.container}>
 			<Text style={{ fontSize: 35, fontWeight: 'bold' }}> Profile screen </Text>

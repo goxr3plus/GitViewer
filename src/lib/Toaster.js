@@ -33,7 +33,7 @@ export const toastConfig = {
 	errorToast: ({ props }) => toasterBody(props, 'rgba(252,41,66,0.96)', 'closecircle'),
 	warningToast: ({ props }) => toasterBody(props, 'rgba(252,169,41,0.96)', 'warning'),
 	infoToast: ({ props }) => toasterBody(props, 'rgba(0,158,184,0.96)', 'infocircle'),
-	successToast: ({ props }) => toasterBody(props, 'rgba(252,41,66,0.96)', 'checkcircle')
+	successToast: ({ props }) => toasterBody(props, 'rgba(104,199,5,0.96)', 'checkcircle')
 }
 
 export const showSuccessToast = (text = '', title = '') => {

@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { ProfileScreen } from './ProfileScreen'
 import { FollowersScreen } from './FollowersScreen'
 import { RepositoriesScreen } from './RepositoriesScreen'
-import { SearchUserScreen } from './SearchUserScreen'
+import SearchUserScreen from './SearchUserScreen'
 import { EvilIcons } from '@expo/vector-icons'
 
 const Stack = createStackNavigator()
