@@ -9,13 +9,13 @@ import { RepositoriesScreen } from './RepositoriesScreen'
 
 const Stack = createStackNavigator()
 
-export const Navigation = ({loggedInUserData}) => {
+export const Navigation = ({searchedUserName}) => {
 
 	const Dashboard = (props) => <DashboardScreen {...props} />
 
 	const Followers = (props) => <FollowersScreen {...props} />
 
-	const Profile = (props) => <ProfileScreen loggedInUserData={loggedInUserData} {...props} />
+	const Profile = (props) => <ProfileScreen userName={'octocat'} {...props} />
 
 	const Repositories = (props) => <RepositoriesScreen {...props} />
 

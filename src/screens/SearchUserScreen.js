@@ -7,7 +7,7 @@ import { isEmpty } from '../lib/Tools'
 
 const SearchUserScreen = ({ onSearchPress }) => {
 	const [searchUserName, changeSearchUserName] = React.useState('')
-	const [accessToken, changeAccessToken] = React.useState('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')
+	const [accessToken, changeAccessToken] = React.useState('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')
 	const [loginModalVisible, setLoginModalVisible] = useState(false)
 	const [logoutModalVisible, setLogoutModalVisible] = useState(false)
 	const [avatarUrl, setAvatarUrl] = useState('')
@@ -48,6 +48,7 @@ const SearchUserScreen = ({ onSearchPress }) => {
 			onSearchPress(searchUserName, accessToken, loggedInUserData.current)
 		}
 	}
+
 
 	return (
 		<View style={styles.container}>

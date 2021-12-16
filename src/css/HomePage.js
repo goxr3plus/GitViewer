@@ -86,10 +86,10 @@ export default StyleSheet.create({
                      textStyle:{
                           color: "black"
                      },
-                     modalHeaderCloseText: {
-                         textAlign: "center",
-                         paddingTop: 5,
-                         marginTop: 10,
-                         paddingRight: 5
-                       }
+                     modalCloseView: {
+                         justifyContent: 'center',
+                         alignItems: "flex-end",
+                         flexDirection: "row-reverse"
+                       },
+
                });

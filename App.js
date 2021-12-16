@@ -25,7 +25,7 @@ export default function App() {
 			<StatusBar />
 			{searchedUserName === false
 				? <SearchUserScreen onSearchPress={onSearchPress} />
-				: <Navigation loggedInUserData={loggedInUserData} logout={logout} />
+				: <Navigation searchedUserName={searchedUserName} logout={logout} />
 			}
 			<Toast
 				position='bottom'
