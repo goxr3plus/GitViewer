@@ -15,9 +15,9 @@ export const Navigation = ({searchedUserName}) => {
 
 	const Followers = (props) => <FollowersScreen {...props} />
 
-	const Profile = (props) => <ProfileScreen userName={'octocat'} {...props} />
+	const Profile = (props) => <ProfileScreen userName={searchedUserName} {...props} />
 
-	const Repositories = (props) => <RepositoriesScreen {...props} />
+	const Repositories = (props) => <RepositoriesScreen userName={searchedUserName} {...props} />
 
 	const getUserIcon = () => {
 		const loggedIn = false
