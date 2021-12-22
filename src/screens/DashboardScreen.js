@@ -14,7 +14,7 @@ export const DashboardScreen = ({ navigation }) => {
 				/>
 			</View>
 
-			<View style={{ flex: 5, justifyContent: 'center' }}>
+			<View style={{ flex: 5, justifyContent: 'center', marginTop: 150 }}>
 				<TouchableHighlight
 					onPress={() => navigation.push('Profile')}
 					style={[styles.buttonStyle, { backgroundColor: 'rgba(5,161,161,0.85)' }]}>

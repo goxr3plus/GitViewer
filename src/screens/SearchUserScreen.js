@@ -7,7 +7,7 @@ import { isEmpty } from '../lib/Tools'
 
 const SearchUserScreen = ({ onSearchPress }) => {
 	const [searchUserName, changeSearchUserName] = React.useState('')
-	const [accessToken, changeAccessToken] = React.useState('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')
+	const [accessToken, changeAccessToken] = React.useState('')
 	const [loginModalVisible, setLoginModalVisible] = useState(false)
 	const [logoutModalVisible, setLogoutModalVisible] = useState(false)
 	const [avatarUrl, setAvatarUrl] = useState('')
@@ -42,8 +42,8 @@ const SearchUserScreen = ({ onSearchPress }) => {
 	const onSearch = () => {
 		if (isEmpty(searchUserName)) {
 			showErrorToast('Please type a user name!')
-		} else if (isEmpty(loggedInUserData.current)) {
-			showErrorToast('You have to login!')
+		// } else if (isEmpty(loggedInUserData.current)) {
+		// 	showErrorToast('You have to login!')
 		} else {
 			onSearchPress(searchUserName, accessToken, loggedInUserData.current)
 		}
