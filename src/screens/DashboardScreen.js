@@ -1,15 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
+import axios from 'axios'
 
 const { width, height } = Dimensions.get('window')
 
-export const DashboardScreen = ({ navigation }) => {
+export const DashboardScreen = ({ navigation, userName }) => {
+	const [userData, setUserData] = useState({})
+
+	useEffect(async () => {
+		const result1 = await axios(
+			'https://api.github.com/users/' + userName
+		)
+
+		setUserData(result1.data)
+	}, [])
 
 	return (
 		<View style={styles.container}>
 			<View style={{ flex: 5, alignItems: 'center' }}>
-				<Text style={{ fontWeight: 'bold', fontSize: 35 }}>The Octocat</Text>
-				<Image style={{ height: height / 2.1 }} source={require('../../assets/images/Octocat.png')}
+				<Text style={{
+					fontWeight: 'bold',
+					fontSize: 35,
+					backgroundColor: 'skyblue',
+					width: width,
+					textAlign: 'center'
+				}}>{userData.name}</Text>
+				<Image style={styles.imageStyle} source={{ uri: userData.avatar_url }}
 					   resizeMode='contain'
 				/>
 			</View>
@@ -42,6 +58,12 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		marginHorizontal: 10
+	},
+	imageStyle: {
+		borderRadius: 180,
+		width: width / 1.2,
+		height: width,
+		alignItems: 'center'
 	},
 	buttonStyle: {
 		marginVertical: 2,
