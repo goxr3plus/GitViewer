@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const { width, height } = Dimensions.get('window')
 
-export const DashboardScreen = ({ navigation, userName }) => {
+export const DashboardScreen = ({ navigation, userName, clearSearchedUser }) => {
 	const [userData, setUserData] = useState({})
 
 	useEffect(async () => {
@@ -30,7 +30,13 @@ export const DashboardScreen = ({ navigation, userName }) => {
 				/>
 			</View>
 
-			<View style={{ flex: 5, justifyContent: 'center', marginTop: 150 }}>
+			<View style={{ flex: 5, justifyContent: 'center', marginTop: 50 }}>
+				<TouchableHighlight
+					onPress={clearSearchedUser}
+					style={[styles.buttonStyle, { backgroundColor: 'rgba(40,173,4,0.9)' }]}>
+					<Text style={styles.buttonTextStyle}>Search Again</Text>
+				</TouchableHighlight>
+
 				<TouchableHighlight
 					onPress={() => navigation.push('Profile')}
 					style={[styles.buttonStyle, { backgroundColor: 'rgba(5,161,161,0.85)' }]}>
@@ -61,7 +67,7 @@ const styles = StyleSheet.create({
 	},
 	imageStyle: {
 		borderRadius: 180,
-		width: width / 1.2,
+		width: width / 1.5,
 		height: width,
 		alignItems: 'center'
 	},

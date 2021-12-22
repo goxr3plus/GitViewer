@@ -9,9 +9,10 @@ import { RepositoriesScreen } from './RepositoriesScreen'
 
 const Stack = createStackNavigator()
 
-export const Navigation = ({ searchedUserName }) => {
+export const Navigation = ({ searchedUserName, clearSearchedUser }) => {
 
-	const Dashboard = (props) => <DashboardScreen userName={searchedUserName} {...props} />
+	const Dashboard = (props) => <DashboardScreen clearSearchedUser={clearSearchedUser}
+												  userName={searchedUserName} {...props} />
 
 	const Followers = (props) => <FollowersScreen {...props} />
 

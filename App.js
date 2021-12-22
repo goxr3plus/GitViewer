@@ -16,6 +16,10 @@ export default function App() {
 		setSearchedUserName(searchedUserNamee)
 	}
 
+	const clearSearchedUser = () => {
+		setSearchedUserName(false)
+	}
+
 	const logout = () => {
 		setSearchedUserName(null)
 	}
@@ -25,7 +29,8 @@ export default function App() {
 			<StatusBar />
 			{searchedUserName === false
 				? <SearchUserScreen onSearchPress={onSearchPress} />
-				: <Navigation searchedUserName={searchedUserName} logout={logout} />
+				:
+				<Navigation searchedUserName={searchedUserName} logout={logout} clearSearchedUser={clearSearchedUser} />
 			}
 			<Toast
 				position='bottom'
